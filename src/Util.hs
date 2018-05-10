@@ -12,6 +12,8 @@ fresh :: State (Name, M.Map Name String) Name
 fresh = do
     (n@(Name i), names) <- get
     let ss = [ c : s | s <- "" : ss, c <- ['a'..'z'] ]
+    let pickS n = if (ss !! n) `notElem` M.elems names then ss !! n
+        else pickS (n + 1)
     put (next n, M.insert n (ss !! i) names)
     return n
 

@@ -19,5 +19,6 @@ main = do
     let lam = parse tks'
     let (u, st) = runState fresh (n, swap names)
     let (pi, st') = runState (trans lam u) st
-    putStrLn $ "[[ " ++ pp (snd st') lam ++ " ]]" ++ pp (snd st') u ++ " = " ++ pp (snd st') pi
+    putStrLn $ "〚 " ++ pp (snd st') lam ++ " 〛" ++ pp (snd st') u ++ " = " ++
+        pp (snd st') pi
     return ()

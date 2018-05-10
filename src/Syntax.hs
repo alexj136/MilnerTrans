@@ -32,8 +32,11 @@ instance PrettyPrint PiTerm where
         Par p q   -> "(" ++ pp names p ++ " | " ++ pp names q ++ ")"
         Rep p     -> "!" ++ pp names p
         New x p   -> "(ν" ++ pp names x ++ ")" ++ pp names p
-        Out x y O -> "̅" ++ pp names x ++ pp names y
+        Out x y O -> putBar (pp names x) ++ pp names y
         In x y O  -> pp names x ++ "(" ++ pp names y ++ ")"
         Out x y p -> pp names (Out x y O) ++ "." ++ pp names p
         In x y p  -> pp names (In x y O) ++ "." ++ pp names p
         O         -> "0"
+        where
+        putBar :: String -> String
+        putBar s = case s of { "" -> "" ; c:cs -> "̅" ++ [c] ++ putBar cs }
